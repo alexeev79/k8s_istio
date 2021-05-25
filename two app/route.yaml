@@ -1,0 +1,30 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: route-apache
+spec:
+  host: service-apache
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        maxConnections: 1
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: route-nginx
+spec:
+  host: service-nginx
+  subsets:
+  - name: v2
+    labels:
+      version: v2
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        maxConnections: 1
